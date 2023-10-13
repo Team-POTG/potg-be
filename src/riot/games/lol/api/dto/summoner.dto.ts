@@ -1,7 +1,12 @@
-import { IsNumber, IsString, Length, MaxLength } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { Schema, SchemaFactory } from "@nestjs/mongoose";
+import { ApiProperty } from "@nestjs/swagger";
+import { MaxLength, IsString, IsNumber, Length } from "class-validator";
+import { HydratedDocument } from "mongoose";
 
-export class SummonerDTO {
+export type SummonerDocument = HydratedDocument<SummonerDto>;
+
+@Schema()
+export class SummonerDto {
   @ApiProperty()
   @MaxLength(56)
   @IsString()

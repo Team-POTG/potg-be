@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 declare const module: any;
 
 async function bootstrap() {
+  console.log("zz" + process.env.DATABASE_URI);
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
@@ -18,10 +19,5 @@ async function bootstrap() {
   });
 
   await app.listen(3001);
-
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
 }
 bootstrap();

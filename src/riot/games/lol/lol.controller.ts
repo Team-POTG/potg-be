@@ -1,40 +1,46 @@
-import { Controller, Get, Param, Query, Req } from '@nestjs/common';
-import { LOLService } from './lol.service';
-import { RegionOfCountry } from 'src/riot/types/regions';
-import { ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, Post, Query, Req } from "@nestjs/common";
+import { LOLService } from "./lol.service";
+import { RegionOfCountry } from "src/riot/games/lol/api/types/regions";
+import { ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
+import { log } from "console";
 
-@ApiTags('SummonerInfo')
 @Controller()
 export class LOLController {
-  constructor(private readonly appService: LOLService) {}
+  constructor(private readonly lolService: LOLService) {}
 
-  @Get('/summonerName/:summonerName')
-  @ApiResponse({
-    status: 400,
-    description: 'Bad request',
-  })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
-  @ApiResponse({ status: 404, description: 'Data not found' })
-  @ApiResponse({ status: 405, description: 'Method not allowed' })
-  @ApiResponse({ status: 415, description: 'Unsupported media type' })
-  @ApiResponse({ status: 429, description: 'Rate limit exceeded' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
-  @ApiResponse({ status: 502, description: 'Bad gateway' })
-  @ApiResponse({ status: 503, description: 'Service unavailable' })
-  @ApiResponse({ status: 504, description: 'Gateway timeout' })
+  @Get("summonerName/:summonerName")
+  @ApiTags("SummonerInfo")
   @ApiParam({
-    name: 'summonerName',
-    type: 'string',
+    name: "summonerName",
+    type: String,
   })
   @ApiQuery({
-    name: 'region',
+    name: "region",
     enum: RegionOfCountry,
   })
-  getSummonerByName(
-    @Param('summonerName') summonerName: string,
-    @Query('region') region: RegionOfCountry,
+  async getSummonerByName(
+    @Param("summonerName") summonerName: string,
+    @Query("region") region: RegionOfCountry
   ) {
-    return this.appService.getSummonerByName(summonerName, region);
+    return this.lolService
+      .getSummonerByName(summonerName, region)
+      .then((data) => data);
+  }
+
+  @Post("request/:summonerName")
+  @ApiTags("Request")
+  @ApiParam({
+    name: "summonerName",
+    type: String,
+  })
+  @ApiQuery({
+    name: "region",
+    enum: RegionOfCountry,
+  })
+  async requestBySummonerName(
+    @Param("summonerName") summonerName: string,
+    @Query("region") region: RegionOfCountry
+  ) {
+    await this.lolService.requestBySummonerName(summonerName, region);
   }
 }

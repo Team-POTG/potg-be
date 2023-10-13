@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, HydratedDocument } from "mongoose";
+import { ApiProperty } from "@nestjs/swagger";
+import { MaxLength, IsString, IsNumber, Length } from "class-validator";
+import { HydratedDocument } from "mongoose";
 
 export type SummonerDocument = HydratedDocument<Summoner>;
 
