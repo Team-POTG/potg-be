@@ -11,15 +11,9 @@ import { Match } from "./schemas/match.schema";
 export class MatchService {
   constructor(@InjectModel(Match.name) private matchModel: Model<Match>) {}
 
-  async getMatchList(puuid: string) {
-    this.matchModel.find();
-  }
-
   async getMatch(puuid: string): Promise<MatchDto[]> {
     return await this.matchModel
       .find({ "info.participants.puuid": puuid })
       .exec();
-    // await this.matchModel.create(await responseMatchByMatchId(matchId, region));
-    // return await responseMatchByMatchId(matchId, region);
   }
 }

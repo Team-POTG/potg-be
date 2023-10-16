@@ -55,22 +55,14 @@ export class RequestService {
             "metadata.matchId": matchId,
           })
           .then(async (foundMatch) => {
-            // 만약 위 find에서
+            // find에서 문서를 찾지 못했다면 match 문서 추가
+            //FIXME: request 두 번 하면 더미데이터 생성됨.
             if (!foundMatch) {
               await this.matchModel.create<MatchDto>(match);
             }
           });
       });
     });
-
-    // await this.matchModel
-    //   // matchId와 puuid 확인
-    //   .find({
-    //     "metadata.matchId": "",
-    //     "metadata.participants": summonerData.puuid,
-    //   })
-    //   .then(async (match) => {if(!match) await this.matchModel.create()});
-    // await this.matchModel.create(matchesData);
   }
 
   async requestByPuuid(puuid: string, region: RegionOfCountry) {
