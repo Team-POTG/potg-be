@@ -2,7 +2,6 @@ import { Controller, Get, Param, Query } from "@nestjs/common";
 import { MatchService } from "./match.service";
 import { ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { RegionOfContinent } from "../../types/regions";
-import { responseMatchListByPuuid } from "./response";
 
 @Controller()
 export class MatchController {

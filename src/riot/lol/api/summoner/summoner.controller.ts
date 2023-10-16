@@ -1,8 +1,6 @@
-import { Controller, Get, Param, Post, Query, Req } from "@nestjs/common";
-// import { LOLService } from "./lol.service";
+import { Controller, Get, Param, Query } from "@nestjs/common";
 import { RegionOfCountry } from "src/riot/lol/types/regions";
-import { ApiConsumes, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
-import { log } from "console";
+import { ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { SummonerService } from "./summoner.service";
 
 @Controller()

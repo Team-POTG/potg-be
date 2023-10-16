@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { RequestService } from "./RequestService";
 import { RequestController } from "./request.controller";
-import { SummonerModule } from "../summoner/summoner.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Summoner, SummonerSchema } from "../summoner/schemas/summoner.schema";
 import { Match, MatchSchema } from "../match/schemas/match.schema";

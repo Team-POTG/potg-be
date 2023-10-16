@@ -3,8 +3,6 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { Summoner, SummonerSchema } from "./schemas/summoner.schema";
 import { SummonerController } from "./summoner.controller";
 import { SummonerService } from "./summoner.service";
-import { LOLService } from "../../lol.service";
-import { LOLModule } from "../../lol.module";
 
 @Module({
   imports: [
