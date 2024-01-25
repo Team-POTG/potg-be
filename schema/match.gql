@@ -1,0 +1,194 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type MetadataDto {
+  dataVersion: String!
+  matchId: String!
+  participants: [String!]!
+}
+
+type PerkStatsDto {
+  defense: Float!
+  flex: Float!
+  offense: Float!
+}
+
+type PerkStyleSelectionDto {
+  perk: Float!
+  var1: Float!
+  var2: Float!
+  var3: Float!
+}
+
+type PerkStyleDto {
+  description: String!
+  selections: [PerkStyleSelectionDto!]!
+  style: Float!
+}
+
+type PerksDto {
+  statPerks: PerkStatsDto!
+  styles: [PerkStyleDto!]!
+}
+
+type ParticipantDto {
+  assists: Float!
+  baronKills: Float!
+  bountyLevel: Float!
+  champExperience: Float!
+  champLevel: Float!
+  championId: Float!
+  championName: String!
+  championTransform: Float!
+  consumablesPurchased: Float!
+  damageDealtToBuildings: Float!
+  damageDealtToObjectives: Float!
+  damageDealtToTurrets: Float!
+  damageSelfMitigated: Float!
+  deaths: Float!
+  detectorWardsPlaced: Float!
+  doubleKills: Float!
+  dragonKills: Float!
+  firstBloodAssist: Boolean!
+  firstBloodKill: Boolean!
+  firstTowerAssist: Boolean!
+  firstTowerKill: Boolean!
+  gameEndedInEarlySurrender: Boolean!
+  gameEndedInSurrender: Boolean!
+  goldEarned: Float!
+  goldSpend: Float!
+  individualPosition: String!
+  inhibitorKills: Float!
+  inhibitorTakedowns: Float!
+  inhibitorsLost: Float!
+  item0: Float!
+  item1: Float!
+  item2: Float!
+  item3: Float!
+  item4: Float!
+  item5: Float!
+  item6: Float!
+  itemsPurchased: Float!
+  killingSprees: Float!
+  kills: Float!
+  lane: String!
+  largestCriticalStrike: Float!
+  largestKillingSpree: Float!
+  largestMulitiKill: Float!
+  longestTimeSpentLiving: Float!
+  magicDamageDealt: Float!
+  magicDamageDealtToChampions: Float!
+  magicDamageTaken: Float!
+  neutralMinionsKilled: Float!
+  nexusKills: Float!
+  nexusTakedowns: Float!
+  nexusLost: Float!
+  objectivesStolen: Float!
+  objectivesStolenAssists: Float!
+  participantId: Float!
+  pentaKills: Float!
+  perks: PerksDto!
+  physicalDamageDealt: Float!
+  physicalDamageDealtToChampions: Float!
+  physicalDamageTaken: Float!
+  profileIcon: Float!
+  puuid: String!
+  quadraKills: Float!
+  riotIdName: String!
+  riotIdTagline: String!
+  role: String!
+  sightWardsBoughtInGame: Float!
+  spell1Casts: Float!
+  spell2Casts: Float!
+  spell3Casts: Float!
+  spell4Casts: Float!
+  summoner1Casts: Float!
+  summoner1Id: Float!
+  summoner2Casts: Float!
+  summoner2Id: Float!
+  summonerId: String!
+  summonerLevel: Float!
+  summonerName: String!
+  teamEarlySurrendered: Boolean!
+  teamId: Float!
+  teamPosition: String!
+  timeCCingOthers: Float!
+  timePlayed: Float!
+  totalDamageDealt: Float!
+  totalDamageDealtToChampions: Float!
+  totalDamageShieldedOnTeammates: Float!
+  totalDamageTaken: Float!
+  totalHeal: Float!
+  totalHealsOnTeammates: Float!
+  totalMinionsKilled: Float!
+  totalTimeCCDealt: Float!
+  totalTimeSpentDead: Float!
+  totalUnitsHealed: Float!
+  tripleKills: Float!
+  trueDamageDealt: Float!
+  trueDamageDealtToChampions: Float!
+  trueDamageTaken: Float!
+  turretKills: Float!
+  turretTakedowns: Float!
+  turretsLost: Float!
+  unrealKills: Float!
+  visionScore: Float!
+  visionWardsBoughtInGame: Float!
+  wardsKilled: Float!
+  wardsPlaced: Float!
+  win: Boolean!
+}
+
+type BanDto {
+  championId: Float!
+  pickTurn: Float!
+}
+
+type ObjectiveDto {
+  first: Boolean!
+  kills: Float!
+}
+
+type ObjectivesDto {
+  baron: ObjectiveDto!
+  champion: ObjectiveDto!
+  dragon: ObjectiveDto!
+  inhibitor: ObjectiveDto!
+  riftHerald: ObjectiveDto!
+  tower: ObjectiveDto!
+}
+
+type TeamDto {
+  bans: [BanDto!]!
+  objectives: ObjectivesDto!
+  teamId: Float!
+  win: Boolean!
+}
+
+type InfoDto {
+  gameCreation: Float!
+  gameDuration: Float!
+  gameEndTimestamp: Float!
+  gameId: Float!
+  gameMode: String!
+  gameName: String!
+  gameStartTimestamp: Float!
+  gameType: String!
+  gameVersion: String!
+  mapId: Float!
+  participants: ParticipantDto!
+  platformId: String!
+  queueId: Float!
+  teams: TeamDto!
+  tournamentCode: String!
+}
+
+type MatchDto {
+  metadata: MetadataDto!
+  info: InfoDto!
+}
+
+type Query {
+  getMatch(puuid: String!, count: Float!): [MatchDto!]!
+}

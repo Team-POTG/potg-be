@@ -1,0 +1,10 @@
+query {
+  getMatch(
+    puuid: "zFCqEp40RlIBwwcuVZ2uUxPmsc8kP07gYs8RjvxUIQ4W8ltU0wrSkMCrn7Vl9Kz1zyuEupm0dB8gnw"
+    count: 20
+  ) {
+    info {
+      gameMode
+    }
+  }
+}
