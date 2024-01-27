@@ -16,7 +16,7 @@ export class AccountService {
     gameName: string,
     region: RegionOfContinent
   ) {
-    await this.accountModel
+    return await this.accountModel
       .findOne({
         tagLine: tagLine,
         gameName: gameName,
