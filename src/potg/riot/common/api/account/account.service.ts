@@ -3,8 +3,9 @@ import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { RegionOfContinent } from "../../types/regions";
 import { Account, AccountSchema } from "./schema/account.schema";
-import { responseAccountByTagLineWithGameName } from "./response";
 import { RequestService } from "src/potg/riot/lol/api/request/request.service";
+import { getCountryToContinent } from "src/potg/riot/lol/controller/regionRouting";
+import { RegionOfCountry } from "src/types/regions";
 
 @Injectable()
 export class AccountService {
@@ -14,7 +15,7 @@ export class AccountService {
   async getAccountByGameNameWithTagLine(
     tagLine: string,
     gameName: string,
-    region: RegionOfContinent
+    region: RegionOfCountry
   ) {
     return await this.accountModel
       .findOne({
@@ -25,10 +26,11 @@ export class AccountService {
       .then((account) => {
         if (account) return account.toJSON();
         else {
-          new RequestService(
-            this.accountModel,
-            null
-          ).requestByTagLineWithGameName(tagLine, gameName, region);
+          new RequestService().requestByTagLineWithGameName(
+            tagLine,
+            gameName,
+            region
+          );
         }
       });
   }

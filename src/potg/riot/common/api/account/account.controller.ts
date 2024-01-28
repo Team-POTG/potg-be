@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query } from "@nestjs/common";
-import { RegionOfContinent } from "../../types/regions";
+import { RegionOfContinent, RegionOfCountry } from "../../types/regions";
 import { AccountService } from "./account.service";
 import {
   ApiOkResponse,
@@ -27,13 +27,13 @@ export class AccountController {
   })
   @ApiQuery({
     name: "region",
-    enum: RegionOfContinent,
+    enum: RegionOfCountry,
   })
   @ApiOkResponse({ type: Account })
   async getAccountByGameNameWithTagLine(
     @Param("tagLine") tagLine: string,
     @Param("gameName") gameName: string,
-    @Query("region") region: RegionOfContinent
+    @Query("region") region: RegionOfCountry
   ) {
     return this.accountService.getAccountByGameNameWithTagLine(
       tagLine,

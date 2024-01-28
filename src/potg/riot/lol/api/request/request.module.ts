@@ -12,6 +12,7 @@ import { AccountSchema } from "src/models/schema/riot/common/account.schema";
     MongooseModule.forFeature([
       { name: Account.name, schema: AccountSchema },
       { name: Match.name, schema: MatchSchema },
+      { name: Summoner.name, schema: SummonerSchema },
     ]),
   ],
   controllers: [RequestController],

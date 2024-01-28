@@ -10,7 +10,7 @@ import { SummonerDto } from "./dto/summoner.dto";
  * @param region 지역(국가)
  * @returns SummonerDto
  */
-export async function responseSummonerApiByPuuid(
+export async function responseSummonerByPuuid(
   puuid: string,
   region: RegionOfCountry
 ): Promise<SummonerDto> {

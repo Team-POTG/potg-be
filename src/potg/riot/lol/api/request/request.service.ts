@@ -2,24 +2,24 @@ import { Injectable } from "@nestjs/common";
 import { RegionOfCountry } from "src/potg/riot/common/types/regions";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { responseSummonerApiByPuuid } from "../summoner/response";
 import { Summoner } from "../summoner/schema/summoner.schema";
 import { Match } from "../match/schema/match.schema";
 import { RegionOfContinent } from "src/types/regions";
-import { responseAccountByTagLineWithGameName } from "src/potg/riot/common/api/account/response";
 import { Account } from "src/potg/riot/common/api/account/schema/account.schema";
 import { AccountDto } from "src/models/dto/riot/common/account.dto";
+import { responseSummonerByPuuid } from "../summoner/response";
+import { getCountryToContinent } from "../../controller/regionRouting";
+import { responseAccountByGameNameWithTagLine } from "src/potg/riot/common/api/account/response";
 
 @Injectable()
 export class RequestService {
-  constructor(
-    // TODO: request,match 나눴더니 의존 오류남
-    @InjectModel(Account.name) private accountModel: Model<Account>,
-    @InjectModel(Match.name) private matchModel: Model<Match>
-  ) {}
+  @InjectModel(Account.name) private accountModel: Model<Account>;
+  @InjectModel(Match.name) private matchModel: Model<Match>;
+  @InjectModel(Summoner.name) private summonerModel: Model<Summoner>;
+  constructor() {}
 
   async requestByPuuid(puuid: string, region: RegionOfCountry) {
-    const summonerData = await responseSummonerApiByPuuid(puuid, region);
+    const summonerData = await responseSummonerByPuuid(puuid, region);
 
     // summonerData의 puuid가 db에 존재하지 않으면 생성, 존재하면 업데이트
     await this.accountModel
@@ -38,20 +38,18 @@ export class RequestService {
   async requestByTagLineWithGameName(
     tagLine: string,
     gameName: string,
-    region: RegionOfContinent
+    region: RegionOfCountry
   ) {
-    const accountData = await responseAccountByTagLineWithGameName(
+    const accountData = await responseAccountByGameNameWithTagLine(
       tagLine,
       gameName,
-      region
+      getCountryToContinent(region)
     );
+    const response = {
+      summoner: await responseSummonerByPuuid(accountData.puuid, region),
+    };
 
-    // const db = this.accountModel
-    //   .exists({ puuid: accountData.puuid })
-    //   .collation({ locale: "ko", strength: 2, alternate: "shifted" })
-    //   .exec();
-
-    // console.log(accountData);
+    // Account
     await this.accountModel
       .findOne({ puuid: accountData.puuid })
       // 대소문자를 구분하지 않고, 공백을 무시하며 검색
@@ -64,9 +62,22 @@ export class RequestService {
             .collation({ locale: "ko", strength: 2, alternate: "shifted" })
             .updateOne(accountData);
         else {
-          // accountData db 저장
+          // response db 저장
           await this.accountModel.create(accountData);
         }
+      });
+
+    // Summoner
+    await this.summonerModel
+      .findOne({ puuid: response.summoner.puuid })
+      .collation({ locale: "ko", strength: 2, alternate: "shifted" })
+      .then(async (summoner) => {
+        if (summoner)
+          await this.summonerModel
+            .findOne({ puuid: response.summoner.puuid })
+            .collation({ locale: "ko", strength: 2, alternate: "shifted" })
+            .updateOne(response.summoner);
+        else await this.summonerModel.create(response.summoner);
       });
   }
 }

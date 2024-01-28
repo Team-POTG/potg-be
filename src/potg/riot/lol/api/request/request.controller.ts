@@ -25,11 +25,11 @@ export class RequestController {
   @ApiTags("Request")
   @ApiQuery({ name: "tagLine", type: String })
   @ApiQuery({ name: "gameName", type: String })
-  @ApiQuery({ name: "region", enum: RegionOfContinent })
+  @ApiQuery({ name: "region", enum: RegionOfCountry })
   async requestByTagLineAnd(
     @Query("tagLine") tagLine: string,
     @Query("gameName") gameName: string,
-    @Query("region") region: RegionOfContinent
+    @Query("region") region: RegionOfCountry
   ) {
     await this.requestService.requestByTagLineWithGameName(
       tagLine,
