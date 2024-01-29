@@ -26,7 +26,7 @@ export class AccountService {
       .then((account) => {
         if (account) return account.toJSON();
         else {
-          new RequestService().requestByTagGameNameWidthTagLine(
+          new RequestService().requestByTagGameNameWithTagLine(
             tagLine,
             gameName,
             region
