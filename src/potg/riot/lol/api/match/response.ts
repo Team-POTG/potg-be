@@ -33,13 +33,18 @@ export async function responseMatchListByPuuid(
   const _queue = queue === undefined ? "" : `queue=${queue}&`;
   const _type = type === undefined ? "" : `type=${type}&`;
 
-  return await axios
-    .get(
-      `https://${region}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?${_startTime}${_endTime}${_queue}${_type}start=${
-        start ?? "0"
-      }&count=${count ?? "20"}&api_key=${process.env.RIOT_API_KEY}`
-    )
-    .then((data) => data.data);
+  return await fetch(
+    `https://${region}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?${_startTime}${_endTime}${_queue}${_type}start=${
+      start ?? "0"
+    }&count=${count ?? "20"}&api_key=${process.env.RIOT_API_KEY}`
+  ).then((data) => data.json());
+  // return await axios
+  //   .get(
+  //     `https://${region}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?${_startTime}${_endTime}${_queue}${_type}start=${
+  //       start ?? "0"
+  //     }&count=${count ?? "20"}&api_key=${process.env.RIOT_API_KEY}`
+  //   )
+  //   .then((data) => data.data);
 
   // return await fetch(
   //   `https://${region}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?${_startTime}${_endTime}${_queue}${_type}start=${

@@ -31,7 +31,7 @@ export class RequestController {
     @Query("gameName") gameName: string,
     @Query("region") region: RegionOfCountry
   ) {
-    await this.requestService.requestByTagLineWithGameName(
+    await this.requestService.requestByTagGameNameWithTagLine(
       tagLine,
       gameName,
       region

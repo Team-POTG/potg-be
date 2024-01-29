@@ -10,6 +10,10 @@ import { AccountDto } from "src/models/dto/riot/common/account.dto";
 import { responseSummonerByPuuid } from "../summoner/response";
 import { getCountryToContinent } from "../../controller/regionRouting";
 import { responseAccountByGameNameWithTagLine } from "src/potg/riot/common/api/account/response";
+import {
+  responseMatchByMatchId,
+  responseMatchListByPuuid,
+} from "../match/response";
 
 @Injectable()
 export class RequestService {
@@ -35,7 +39,7 @@ export class RequestService {
       });
   }
 
-  async requestByTagLineWithGameName(
+  async requestByTagGameNameWithTagLine(
     tagLine: string,
     gameName: string,
     region: RegionOfCountry
@@ -47,6 +51,16 @@ export class RequestService {
     );
     const response = {
       summoner: await responseSummonerByPuuid(accountData.puuid, region),
+      match: await responseMatchListByPuuid(
+        accountData.puuid,
+        getCountryToContinent(region),
+        undefined,
+        undefined,
+        undefined,
+        "",
+        0,
+        5
+      ),
     };
 
     // Account
@@ -79,5 +93,21 @@ export class RequestService {
             .updateOne(response.summoner);
         else await this.summonerModel.create(response.summoner);
       });
+
+    // Match List
+    response.match.forEach(async (matchId) => {
+      this.matchModel
+        .findOne({ "metadata.matchId": matchId })
+        .collation({ locale: "ko", strength: 2, alternate: "shifted" })
+        .then(async (matchDbData) => {
+          if (matchDbData === null)
+            await this.matchModel.create(
+              await responseMatchByMatchId(
+                matchId,
+                getCountryToContinent(region)
+              )
+            );
+        });
+    });
   }
 }
