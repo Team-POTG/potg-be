@@ -113,7 +113,7 @@ export class ParticipantDto {
   participantId: number;
   @Field()
   pentaKills: number;
-  @Field()
+  @Field(() => PerksDto)
   perks: PerksDto;
   @Field()
   physicalDamageDealt: number;

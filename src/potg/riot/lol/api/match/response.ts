@@ -1,10 +1,8 @@
 /**
  * Match-V5
  */
+import { MatchDto } from "src/models/dto/riot/lol/match/match.dto";
 import { RegionOfContinent } from "src/potg/riot/common/types/regions";
-import { MatchDto } from "./dto/match.dto";
-import axios from "axios";
-import { log } from "console";
 
 /**
  * MatchAPI 반환

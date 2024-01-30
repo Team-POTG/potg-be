@@ -11,7 +11,6 @@ import {
   Account,
   AccountSchema,
 } from "../common/api/account/schema/account.schema";
-import { Match, MatchSchema } from "./api/match/schema/match.schema";
 import {
   Summoner,
   SummonerSchema,

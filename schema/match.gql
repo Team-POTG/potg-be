@@ -2,12 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type MetadataDto {
-  dataVersion: String!
-  matchId: String!
-  participants: [String!]!
-}
-
 type PerkStatsDto {
   defense: Float!
   flex: Float!
@@ -177,11 +171,17 @@ type InfoDto {
   gameType: String!
   gameVersion: String!
   mapId: Float!
-  participants: ParticipantDto!
+  participants: [ParticipantDto!]!
   platformId: String!
   queueId: Float!
-  teams: TeamDto!
+  teams: [TeamDto!]!
   tournamentCode: String!
+}
+
+type MetadataDto {
+  dataVersion: String!
+  matchId: String!
+  participants: [String!]!
 }
 
 type MatchDto {

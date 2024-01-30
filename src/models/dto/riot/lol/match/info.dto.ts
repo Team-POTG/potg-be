@@ -24,14 +24,14 @@ export class InfoDto {
   gameVersion: string;
   @Field()
   mapId: number;
-  @Field()
-  participants: ParticipantDto;
+  @Field(() => [ParticipantDto])
+  participants: ParticipantDto[];
   @Field()
   platformId: string;
   @Field()
   queueId: number;
-  @Field()
-  teams: TeamDto;
+  @Field(() => [TeamDto])
+  teams: TeamDto[];
   @Field()
   tournamentCode: string;
 }

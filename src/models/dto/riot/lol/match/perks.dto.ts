@@ -4,7 +4,7 @@ import { PerkStyleDto } from "./perkStyle.dto";
 
 @ObjectType()
 export class PerksDto {
-  @Field()
+  @Field(() => PerkStatsDto)
   statPerks: PerkStatsDto;
   @Field((type) => [PerkStyleDto])
   styles: PerkStyleDto[];

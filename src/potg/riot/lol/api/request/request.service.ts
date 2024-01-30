@@ -3,7 +3,6 @@ import { RegionOfCountry } from "src/potg/riot/common/types/regions";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Summoner } from "../summoner/schema/summoner.schema";
-import { Match } from "../match/schema/match.schema";
 import { RegionOfContinent } from "src/types/regions";
 import { Account } from "src/potg/riot/common/api/account/schema/account.schema";
 import { AccountDto } from "src/models/dto/riot/common/account.dto";
@@ -14,6 +13,7 @@ import {
   responseMatchByMatchId,
   responseMatchListByPuuid,
 } from "../match/response";
+import { Match } from "src/models/schema/riot/lol/match/match.schema";
 
 @Injectable()
 export class RequestService {

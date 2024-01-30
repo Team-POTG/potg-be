@@ -5,7 +5,10 @@ import { MatchResolver } from "./match.resolver";
 import { ApolloDriverConfig, ApolloDriver } from "@nestjs/apollo";
 import { GraphQLModule } from "@nestjs/graphql";
 import { MongooseModule } from "@nestjs/mongoose";
-import { Match, MatchSchema } from "./schema/match.schema";
+import {
+  Match,
+  MatchSchema,
+} from "src/models/schema/riot/lol/match/match.schema";
 
 @Module({
   imports: [

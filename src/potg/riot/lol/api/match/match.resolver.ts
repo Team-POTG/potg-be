@@ -1,6 +1,6 @@
 import { Args, Query, Resolver } from "@nestjs/graphql";
 import { MatchService } from "./match.service";
-import { MatchDto } from "./dto/match.dto";
+import { MatchDto } from "src/models/dto/riot/lol/match/match.dto";
 
 @Resolver(() => MatchDto)
 export class MatchResolver {

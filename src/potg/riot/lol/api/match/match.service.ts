@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { MatchDto } from "./dto/match.dto";
-import { Match } from "./schema/match.schema";
+import { MatchDto } from "src/models/dto/riot/lol/match/match.dto";
+import { Match } from "src/models/schema/riot/lol/match/match.schema";
 
 @Injectable()
 export class MatchService {
