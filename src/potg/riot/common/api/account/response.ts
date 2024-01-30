@@ -1,7 +1,6 @@
 import { log } from "console";
 import { RegionOfContinent } from "../../types/regions";
-import { AccountDto } from "./dto/account.dto";
-import { RegionOfCountry } from "src/types/regions";
+import { AccountDto } from "src/models/dto/riot/common/account.dto";
 
 export async function responseAccountByGameNameWithTagLine(
   tagLine: string,

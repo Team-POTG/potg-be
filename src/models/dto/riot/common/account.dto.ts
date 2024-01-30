@@ -1,4 +1,4 @@
-import { MaxLength, IsString, IsNumber, Length } from "class-validator";
+import { IsString } from "class-validator";
 
 export class AccountDto {
   @IsString()

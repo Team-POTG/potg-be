@@ -8,7 +8,8 @@ import {
   ApiQuery,
   ApiTags,
 } from "@nestjs/swagger";
-import { Account } from "./schema/account.schema";
+import { AccountDto } from "src/models/dto/riot/common/account.dto";
+import { Account } from "src/models/schema/riot/common/account.schema";
 
 @Controller()
 export class AccountController {
@@ -16,12 +17,12 @@ export class AccountController {
 
   @Get("potg/common/accounts/by-riot-id/:gameName/:tagLine")
   @ApiOperation({ operationId: "getAccountByGameNameWithTagLine" })
-  @ApiTags("Riot Common")
-  @ApiParam({
+  @ApiTags("Account")
+  @ApiQuery({
     name: "gameName",
     type: String,
   })
-  @ApiParam({
+  @ApiQuery({
     name: "tagLine",
     type: String,
   })
@@ -31,14 +32,12 @@ export class AccountController {
   })
   @ApiOkResponse({ type: Account })
   async getAccountByGameNameWithTagLine(
-    @Param("tagLine") tagLine: string,
-    @Param("gameName") gameName: string,
+    @Query("tagLine") tagLine: string,
+    @Query("gameName") gameName: string,
     @Query("region") region: RegionOfCountry
-  ) {
-    return this.accountService.getAccountByGameNameWithTagLine(
-      tagLine,
-      gameName,
-      region
-    );
+  ): Promise<AccountDto> {
+    return this.accountService
+      .getAccountByGameNameWithTagLine(tagLine, gameName, region)
+      .then((data) => data);
   }
 }

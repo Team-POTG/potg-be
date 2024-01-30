@@ -11,7 +11,7 @@ import {
   RegionOfCountry,
 } from "../../../common/types/regions";
 import { LeagueService } from "./league.service";
-import { League } from "./schema/league.schema";
+import { League } from "src/models/schema/riot/lol/league/league.schema";
 
 @Controller()
 export class LeagueController {

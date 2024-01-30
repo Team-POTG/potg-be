@@ -6,6 +6,7 @@ import { Account, AccountSchema } from "./schema/account.schema";
 import { RequestService } from "src/potg/riot/lol/api/request/request.service";
 import { getCountryToContinent } from "src/potg/riot/lol/controller/regionRouting";
 import { RegionOfCountry } from "src/types/regions";
+import { AccountDto } from "src/models/dto/riot/common/account.dto";
 
 @Injectable()
 export class AccountService {
@@ -16,7 +17,7 @@ export class AccountService {
     tagLine: string,
     gameName: string,
     region: RegionOfCountry
-  ) {
+  ): Promise<AccountDto> {
     return await this.accountModel
       .findOne({
         tagLine: tagLine,
