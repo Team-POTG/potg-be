@@ -15,7 +15,7 @@ import { Account } from "src/models/schema/riot/common/account.schema";
 export class AccountController {
   constructor(private accountService: AccountService) {}
 
-  @Get("potg/common/accounts/by-riot-id/:gameName/:tagLine")
+  @Get("potg/common/accounts/by-riot-id")
   @ApiOperation({ operationId: "getAccountByGameNameWithTagLine" })
   @ApiTags("Account")
   @ApiQuery({
