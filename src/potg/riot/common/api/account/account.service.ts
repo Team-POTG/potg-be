@@ -11,7 +11,8 @@ import { AccountDto } from "src/models/dto/riot/common/account.dto";
 @Injectable()
 export class AccountService {
   constructor(
-    @InjectModel(Account.name) private accountModel: Model<Account>
+    @InjectModel(Account.name) private accountModel: Model<Account>,
+    private requestService: RequestService
   ) {}
   async getAccountByGameNameWithTagLine(
     tagLine: string,
@@ -27,7 +28,7 @@ export class AccountService {
       .then((account) => {
         if (account) return account.toJSON();
         else {
-          new RequestService().requestByTagGameNameWithTagLine(
+          this.requestService.requestByTagGameNameWithTagLine(
             tagLine,
             gameName,
             region

@@ -75,10 +75,8 @@ export class RequestService {
             .findOne({ puuid: accountData.puuid })
             .collation({ locale: "ko", strength: 2, alternate: "shifted" })
             .updateOne(accountData);
-        else {
-          // response db 저장
-          await this.accountModel.create(accountData);
-        }
+        // response db 저장
+        else await this.accountModel.create(accountData);
       });
 
     // Summoner
@@ -94,13 +92,12 @@ export class RequestService {
         else await this.summonerModel.create(response.summoner);
       });
 
-    // Match List
     response.match.forEach(async (matchId) => {
       this.matchModel
         .findOne({ "metadata.matchId": matchId })
         .collation({ locale: "ko", strength: 2, alternate: "shifted" })
         .then(async (matchDbData) => {
-          if (matchDbData === null)
+          if (!matchDbData)
             await this.matchModel.create(
               await responseMatchByMatchId(
                 matchId,

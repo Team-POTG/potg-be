@@ -20,6 +20,7 @@ import {
   ],
   controllers: [RequestController],
   providers: [RequestService],
+  exports: [RequestService],
 })
 export class RequestModule {
   constructor(private requestService: RequestService) {}
