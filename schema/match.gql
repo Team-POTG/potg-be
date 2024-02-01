@@ -89,7 +89,7 @@ type ParticipantDto {
   profileIcon: Float!
   puuid: String!
   quadraKills: Float!
-  riotIdName: String!
+  riotIdGameName: String!
   riotIdTagline: String!
   role: String!
   sightWardsBoughtInGame: Float!

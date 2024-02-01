@@ -128,7 +128,7 @@ export class ParticipantDto {
   @Field()
   quadraKills: number;
   @Field()
-  riotIdName: string;
+  riotIdGameName: string;
   @Field()
   riotIdTagline: string;
   @Field()

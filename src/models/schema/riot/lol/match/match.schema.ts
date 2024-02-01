@@ -8,10 +8,10 @@ export type MatchDocument = HydratedDocument<Match>;
 @Schema()
 export class Match {
   @Prop()
-  metadata!: MetadataDto;
+  metadata: MetadataDto;
 
   @Prop()
-  info!: InfoDto;
+  info: InfoDto;
 }
 
 export const MatchSchema = SchemaFactory.createForClass(Match);
