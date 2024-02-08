@@ -32,7 +32,7 @@ export class LeagueController {
   async getLeague(
     @Param("id") id: string,
     // @Query("region") region: RegionOfContinent
-    @Param("region") region: RegionOfCountry
+    @Query("region") region: RegionOfCountry
   ) {
     return this.matchService.getLeague(id, region);
   }
