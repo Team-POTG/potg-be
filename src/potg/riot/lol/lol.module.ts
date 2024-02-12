@@ -7,6 +7,7 @@ import { RequestModule } from "./api/request/request.module";
 import { LeagueModule } from "./api/league/league.module";
 import { AccountModule } from "../common/api/account/account.module";
 import { SpectatorModule } from "./api/spectator/spectator.module";
+import { AutocompleteModule } from "../common/api/autocomplete/autocomplete/autocomplete.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { SpectatorModule } from "./api/spectator/spectator.module";
     RequestModule,
     LeagueModule,
     SpectatorModule,
+    AutocompleteModule,
   ],
   controllers: [LOLController],
   providers: [LOLService],
