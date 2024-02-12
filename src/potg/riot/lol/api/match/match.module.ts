@@ -15,6 +15,7 @@ import {
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: "./schema/match.gql",
+      playground: false,
     }),
     MongooseModule.forFeature([{ name: Match.name, schema: MatchSchema }]),
   ],

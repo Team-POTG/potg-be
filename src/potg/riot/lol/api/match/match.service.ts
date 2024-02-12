@@ -11,6 +11,7 @@ export class MatchService {
   async getMatch(puuid: string, count: number): Promise<MatchDto[]> {
     return await this.matchModel
       .find({ "info.participants.puuid": puuid }, null, { limit: count })
+      .sort({ _id: -1 })
       .exec();
   }
 }
