@@ -31,7 +31,6 @@ export class LeagueController {
   @ApiOkResponse({ type: League })
   async getLeague(
     @Param("id") id: string,
-    // @Query("region") region: RegionOfContinent
     @Query("region") region: RegionOfCountry
   ) {
     return this.matchService.getLeague(id, region);
