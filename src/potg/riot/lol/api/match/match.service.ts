@@ -8,9 +8,9 @@ import { Match } from "src/models/schema/riot/lol/match/match.schema";
 export class MatchService {
   constructor(@InjectModel(Match.name) private matchModel: Model<Match>) {}
 
-  async getMatch(puuid: string, count: number): Promise<MatchDto[]> {
+  async getMatch(puuid: string, limit: number): Promise<MatchDto[]> {
     return await this.matchModel
-      .find({ "info.participants.puuid": puuid }, null, { limit: count })
+      .find({ "info.participants.puuid": puuid }, null, { limit: limit })
       .sort({ _id: -1 })
       .exec();
   }

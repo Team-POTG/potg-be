@@ -190,5 +190,5 @@ type MatchDto {
 }
 
 type Query {
-  getMatch(puuid: String!, count: Float!): [MatchDto!]!
+  getMatch(puuid: String!, limit: Float!): [MatchDto!]!
 }

@@ -9,8 +9,8 @@ export class MatchResolver {
   @Query(() => [MatchDto])
   async getMatch(
     @Args("puuid") puuid: string,
-    @Args("count") count: number
+    @Args("limit") limit: number
   ): Promise<MatchDto[]> {
-    return await this.matchService.getMatch(puuid, count);
+    return await this.matchService.getMatch(puuid, limit);
   }
 }
