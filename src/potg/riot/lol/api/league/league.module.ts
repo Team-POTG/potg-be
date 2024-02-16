@@ -1,8 +1,11 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { League, LeagueSchema } from "./schema/league.schema";
 import { LeagueController } from "./league.controller";
 import { LeagueService } from "./league.service";
+import {
+  League,
+  LeagueSchema,
+} from "src/models/schema/riot/lol/league/league.schema";
 
 @Module({
   imports: [
@@ -10,6 +13,7 @@ import { LeagueService } from "./league.service";
   ],
   controllers: [LeagueController],
   providers: [LeagueService],
+  exports: [LeagueService],
 })
 export class LeagueModule {
   constructor(private leagueModule: LeagueService) {}

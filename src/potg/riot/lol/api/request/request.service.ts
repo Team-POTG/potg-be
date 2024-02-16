@@ -14,13 +14,20 @@ import {
   responseMatchListByPuuid,
 } from "../match/response";
 import { Match } from "src/models/schema/riot/lol/match/match.schema";
+import { responseLeagueBySummonerId } from "../league/response";
+import { LeagueService } from "../league/league.service";
+import { AccountService } from "src/potg/riot/common/api/account/account.service";
+import { League } from "src/models/schema/riot/lol/league/league.schema";
 
 @Injectable()
 export class RequestService {
-  @InjectModel(Account.name) private accountModel: Model<Account>;
-  @InjectModel(Match.name) private matchModel: Model<Match>;
-  @InjectModel(Summoner.name) private summonerModel: Model<Summoner>;
-  constructor() {}
+  constructor(
+    @InjectModel(Account.name) private accountModel: Model<Account>,
+    @InjectModel(Match.name) private matchModel: Model<Match>,
+    @InjectModel(Summoner.name) private summonerModel: Model<Summoner>,
+    @InjectModel(League.name) private leagueModel: Model<League>,
+    private leagueService: LeagueService
+  ) {}
 
   async requestByPuuid(puuid: string, region: RegionOfCountry) {
     const summonerData = await responseSummonerByPuuid(puuid, region);
@@ -49,31 +56,31 @@ export class RequestService {
       gameName,
       getCountryToContinent(region)
     );
-    const response = {
-      summoner: await responseSummonerByPuuid(accountData.puuid, region),
-      match: await responseMatchListByPuuid(
-        accountData.puuid,
-        getCountryToContinent(region),
-        undefined,
-        undefined,
-        undefined,
-        "",
-        0,
-        5
-      ),
-    };
+
+    const summonerData = await responseSummonerByPuuid(
+      accountData.puuid,
+      region
+    );
+
+    const matchData = await responseMatchListByPuuid(
+      accountData.puuid,
+      getCountryToContinent(region),
+      undefined,
+      undefined,
+      undefined,
+      "",
+      0,
+      5
+    );
 
     // Account
     await this.accountModel
       .findOne({ puuid: accountData.puuid })
-      // 대소문자를 구분하지 않고, 공백을 무시하며 검색
-      .collation({ locale: "ko", strength: 2, alternate: "shifted" })
       .then(async (account) => {
         if (account)
           // accountData의 puuid가 db에 존재하지 않으면 생성, 존재하면 업데이트
           await this.accountModel
             .findOne({ puuid: accountData.puuid })
-            .collation({ locale: "ko", strength: 2, alternate: "shifted" })
             .updateOne(accountData);
         // response db 저장
         else await this.accountModel.create(accountData);
@@ -81,18 +88,28 @@ export class RequestService {
 
     // Summoner
     await this.summonerModel
-      .findOne({ puuid: response.summoner.puuid })
-      .collation({ locale: "ko", strength: 2, alternate: "shifted" })
+      .findOne({ puuid: summonerData.puuid })
       .then(async (summoner) => {
         if (summoner)
           await this.summonerModel
-            .findOne({ puuid: response.summoner.puuid })
-            .collation({ locale: "ko", strength: 2, alternate: "shifted" })
-            .updateOne(response.summoner);
-        else await this.summonerModel.create(response.summoner);
+            .findOne({ puuid: summonerData.puuid })
+            .updateOne(summonerData);
+        else await this.summonerModel.create(summonerData);
       });
 
-    response.match.forEach(async (matchId) => {
+    // League
+    this.leagueModel
+      .findOne({ "info.summonerId": summonerData.id })
+      .then(async (league) => {
+        if (league) {
+          await this.leagueService.update(summonerData.id, region);
+        } else {
+          await this.leagueService.add(summonerData.id, region);
+        }
+      });
+
+    // Match
+    matchData.forEach(async (matchId) => {
       this.matchModel
         .findOne({ "metadata.matchId": matchId })
         .collation({ locale: "ko", strength: 2, alternate: "shifted" })

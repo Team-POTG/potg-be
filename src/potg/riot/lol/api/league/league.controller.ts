@@ -12,10 +12,11 @@ import {
 } from "../../../common/types/regions";
 import { LeagueService } from "./league.service";
 import { League } from "src/models/schema/riot/lol/league/league.schema";
+import { LeagueEntryDto } from "src/models/dto/riot/lol/league/leagueEntry.dto";
 
 @Controller()
 export class LeagueController {
-  constructor(private matchService: LeagueService) {}
+  constructor(private leagueService: LeagueService) {}
 
   @Get("potg/lol/league/by-summoner/:id")
   @ApiOperation({ operationId: "getLeague" })
@@ -28,11 +29,11 @@ export class LeagueController {
     name: "region",
     enum: RegionOfCountry,
   })
-  @ApiOkResponse({ type: League })
+  @ApiOkResponse({ type: [LeagueEntryDto] })
   async getLeague(
     @Param("id") id: string,
     @Query("region") region: RegionOfCountry
   ) {
-    return this.matchService.getLeague(id, region);
+    return this.leagueService.find(id);
   }
 }

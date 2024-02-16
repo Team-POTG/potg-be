@@ -9,6 +9,12 @@ import {
   Match,
   MatchSchema,
 } from "src/models/schema/riot/lol/match/match.schema";
+import {
+  League,
+  LeagueSchema,
+} from "src/models/schema/riot/lol/league/league.schema";
+import { LeagueService } from "../league/league.service";
+import { LeagueModule } from "../league/league.module";
 
 @Module({
   imports: [
@@ -16,7 +22,9 @@ import {
       { name: Account.name, schema: AccountSchema },
       { name: Match.name, schema: MatchSchema },
       { name: Summoner.name, schema: SummonerSchema },
+      { name: League.name, schema: LeagueSchema },
     ]),
+    LeagueModule,
   ],
   controllers: [RequestController],
   providers: [RequestService],
