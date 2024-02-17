@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { MaxLength, IsString, IsNumber, Length } from "class-validator";
 
-class AutocompleteDto {
+export class AutocompleteDto {
   @ApiProperty()
   @IsString()
   gameName: string;
@@ -12,7 +12,7 @@ class AutocompleteDto {
 
   @ApiProperty()
   @IsNumber()
-  summonerProfileIconId: number;
+  profileIconId: number;
 
   @ApiProperty()
   @IsNumber()

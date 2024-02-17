@@ -9,6 +9,7 @@ import {
 } from "@nestjs/swagger";
 import { AccountDto } from "src/models/dto/riot/common/account.dto";
 import { SummonerDto } from "src/models/dto/riot/lol/summoner/summoner.dto";
+import { AutocompleteDto } from "src/models/dto/riot/common/autocomplete.dto";
 
 @Controller("autocomplete")
 export class AutocompleteController {
@@ -30,20 +31,12 @@ export class AutocompleteController {
     name: "limit",
     type: Number,
   })
-  @ApiOkResponse({ type: [SummonerDto] })
+  @ApiOkResponse({ type: [AutocompleteDto] })
   async getAutocompleteByRiotId(
     @Query("tagLine") tagLine: string,
     @Query("gameName") gameName: string,
     @Query("limit") limit: number = 5
-  ): Promise<
-    {
-      gameName: string;
-      tagLine: string;
-      profileIconId: number;
-      tier: string;
-      rank: string;
-    }[]
-  > {
+  ): Promise<AutocompleteDto[]> {
     return this.autocompleteService.getAutocompleteByRiotId(
       tagLine,
       gameName,
