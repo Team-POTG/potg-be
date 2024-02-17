@@ -18,16 +18,7 @@ export class AutocompleteService {
     tagLine: string,
     gameName: string,
     limit: number
-  ): Promise<
-    AutocompleteDto[]
-    // {
-    //   gameName: string;
-    //   tagLine: string;
-    //   profileIconId: number;
-    //   tier: string;
-    //   rank: string;
-    // }[]
-  > {
+  ): Promise<AutocompleteDto[]> {
     if (gameName) {
       const accounts = await this.accountModel
         .find({
