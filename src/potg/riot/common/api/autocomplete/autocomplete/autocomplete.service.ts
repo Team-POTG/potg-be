@@ -66,7 +66,9 @@ export class AutocompleteService {
                 (summoner) => summoner.puuid === account.puuid
               )[0].id
           )[0]
-          .info.filter((queueType) => queueType.queueType)[0];
+          .info.filter(
+            (queueType) => queueType.queueType === "RANKED_SOLO_5x5"
+          )[0];
 
         return {
           gameName: account.gameName,
