@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { MaxLength, IsString, IsNumber, Length } from "class-validator";
+import { IsString, IsNumber, IsOptional } from "class-validator";
 
 export class AutocompleteDto {
   @ApiProperty()
@@ -20,13 +20,16 @@ export class AutocompleteDto {
 
   @ApiProperty()
   @IsString()
-  tier: string;
+  @IsOptional()
+  tier?: string | undefined;
 
   @ApiProperty()
   @IsString()
-  rank: string;
+  @IsOptional()
+  rank?: string | undefined;
 
   @ApiProperty()
   @IsNumber()
-  leaguePoint: number;
+  @IsOptional()
+  leaguePoint?: number | undefined;
 }

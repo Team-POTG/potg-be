@@ -53,32 +53,43 @@ export class AutocompleteService {
         })
         .then((leagues) => leagues ?? []);
 
-      // TODO: league에 정보가 존재하지 않으면 tier, rank는 보내지 않기
       return accounts.map((account) => {
         const summoner = summoners.filter(
           (summoner) => summoner.puuid === account.puuid
         )[0];
-        const league = leagues
-          .filter(
-            (league) =>
-              league.info[0].summonerId ===
-              summoners.filter(
-                (summoner) => summoner.puuid === account.puuid
-              )[0].id
-          )[0]
-          .info.filter(
-            (queueType) => queueType.queueType === "RANKED_SOLO_5x5"
-          )[0];
+        const league =
+          leagues.length === 0
+            ? undefined
+            : leagues
+                .filter(
+                  (league) =>
+                    league.info[0].summonerId ===
+                    summoners.filter(
+                      (summoner) => summoner.puuid === account.puuid
+                    )[0].id
+                )[0]
+                .info.filter(
+                  (queueType) => queueType.queueType === "RANKED_SOLO_5x5"
+                )[0];
 
-        return {
-          gameName: account.gameName,
-          tagLine: account.tagLine,
-          profileIconId: summoner.profileIconId,
-          summonerLevel: summoner.summonerLevel,
-          tier: league.tier ?? "",
-          rank: league.rank ?? "",
-          leaguePoint: league.leaguePoints,
-        };
+        if (league === undefined) {
+          return {
+            gameName: account.gameName,
+            tagLine: account.tagLine,
+            profileIconId: summoner.profileIconId,
+            summonerLevel: summoner.summonerLevel,
+          };
+        } else {
+          return {
+            gameName: account.gameName,
+            tagLine: account.tagLine,
+            profileIconId: summoner.profileIconId,
+            summonerLevel: summoner.summonerLevel,
+            tier: league.tier,
+            rank: league.rank,
+            leaguePoint: league.leaguePoints,
+          };
+        }
       });
     }
   }
