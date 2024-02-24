@@ -4,6 +4,10 @@ import { IsString, IsNumber, IsOptional } from "class-validator";
 export class AutocompleteDto {
   @ApiProperty()
   @IsString()
+  puuid: string;
+
+  @ApiProperty()
+  @IsString()
   gameName: string;
 
   @ApiProperty()

@@ -74,6 +74,7 @@ export class AutocompleteService {
 
         if (league === undefined) {
           return {
+            puuid: account.puuid,
             gameName: account.gameName,
             tagLine: account.tagLine,
             profileIconId: summoner.profileIconId,
@@ -81,6 +82,7 @@ export class AutocompleteService {
           };
         } else {
           return {
+            puuid: account.puuid,
             gameName: account.gameName,
             tagLine: account.tagLine,
             profileIconId: summoner.profileIconId,
