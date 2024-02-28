@@ -11,7 +11,6 @@ import {
   RegionOfCountry,
 } from "../../../common/types/regions";
 import { LeagueService } from "./league.service";
-import { League } from "src/models/schema/riot/lol/league/league.schema";
 import { LeagueEntryDto } from "src/models/dto/riot/lol/league/leagueEntry.dto";
 
 @Controller()
@@ -34,6 +33,6 @@ export class LeagueController {
     @Param("id") id: string,
     @Query("region") region: RegionOfCountry
   ) {
-    return this.leagueService.find(id);
+    return await this.leagueService.find(id);
   }
 }
