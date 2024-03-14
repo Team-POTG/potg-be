@@ -7,10 +7,16 @@ export async function responseAccountByGameNameWithTagLine(
   gameName: string,
   region: RegionOfContinent
 ): Promise<AccountDto> {
-  console.log(
-    `https://${region}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${process.env.RIOT_API_KEY}`
-  );
   return await fetch(
     `https://${region}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${process.env.RIOT_API_KEY}`
+  ).then((data) => data.json());
+}
+
+export async function responseAccountByPuuid(
+  puuid: string,
+  region: RegionOfContinent
+): Promise<AccountDto> {
+  return await fetch(
+    `https://${region}.api.riotgames.com/riot/account/v1/accounts/by-puuid/${puuid}?api_key=${process.env.RIOT_API_KEY}`
   ).then((data) => data.json());
 }

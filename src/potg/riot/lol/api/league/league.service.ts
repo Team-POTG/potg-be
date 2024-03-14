@@ -10,19 +10,30 @@ import { LeagueEntryDto } from "src/models/dto/riot/lol/league/leagueEntry.dto";
 export class LeagueService {
   constructor(@InjectModel(League.name) private leagueModel: Model<League>) {}
 
-  async find(id: string): Promise<LeagueEntryDto[]> {
-    return (await this.leagueModel.findOne({ "info.summonerId": id })).info;
+  async getLeaguesBySummonerId(
+    summonerId: string,
+    region: RegionOfCountry
+  ): Promise<LeagueEntryDto[]> {
+    return await this.leagueModel
+      .findOne({ "info.summonerId": summonerId })
+      .then(async (leagues) => {
+        if (leagues) return leagues.info;
+        else
+          return this.leagueModel
+            .create({
+              info: await responseLeagueBySummonerId(summonerId, region),
+            })
+            .then((createdLeagues) => createdLeagues.info);
+      });
   }
 
-  async add(id: string, region: RegionOfCountry) {
-    await this.leagueModel.create({
-      info: await responseLeagueBySummonerId(id, region),
-    });
-  }
-
-  async update(id: string, region: RegionOfCountry) {
-    await this.leagueModel.updateOne({
-      info: await responseLeagueBySummonerId(id, region),
-    });
+  async updateLeaguesBySummonerId(
+    summonerId: string,
+    region: RegionOfCountry
+  ): Promise<LeagueEntryDto[]> {
+    return await this.leagueModel.findOneAndUpdate(
+      { "info.summonerId": summonerId },
+      { info: await responseLeagueBySummonerId(summonerId, region) }
+    );
   }
 }

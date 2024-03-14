@@ -7,6 +7,7 @@ import { RequestService } from "src/potg/riot/lol/api/request/request.service";
 import { getCountryToContinent } from "src/potg/riot/lol/controller/regionRouting";
 import { RegionOfCountry } from "src/types/regions";
 import { AccountDto } from "src/models/dto/riot/common/account.dto";
+import { responseAccountByPuuid } from "./response";
 
 @Injectable()
 export class AccountService {
@@ -28,12 +29,41 @@ export class AccountService {
       .then((account) => {
         if (account) return account.toJSON();
         else {
-          this.requestService.requestByTagGameNameWithTagLine(
+          this.requestService.requestByGameNameWithTagLine(
             tagLine,
             gameName,
             region
           );
         }
       });
+  }
+
+  async getAccountByPuuid(
+    puuid: string,
+    region: RegionOfCountry
+  ): Promise<AccountDto> {
+    return await this.accountModel
+      .findOne({ puuid: puuid })
+      .then(async (account) => {
+        if (account) return account;
+        else
+          return this.accountModel
+            .create(
+              await responseAccountByPuuid(puuid, getCountryToContinent(region))
+            )
+            .then((createdAccount) => createdAccount);
+      });
+  }
+
+  async updateAccounByPuuid(
+    puuid: string,
+    region: RegionOfCountry
+  ): Promise<AccountDto> {
+    return await this.accountModel
+      .findOneAndUpdate(
+        { puuid: puuid },
+        await responseAccountByPuuid(puuid, getCountryToContinent(region))
+      )
+      .then((account) => account);
   }
 }

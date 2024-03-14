@@ -2,6 +2,7 @@
  * Match-V5
  */
 import { log } from "console";
+import { LeagueEntryDto } from "src/models/dto/riot/lol/league/leagueEntry.dto";
 import {
   RegionOfContinent,
   RegionOfCountry,
@@ -20,14 +21,11 @@ import {
  * @returns
  */
 export async function responseLeagueBySummonerId(
-  id: string,
+  summonerId: string,
   region: RegionOfCountry
-) {
-  log(
-    `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${process.env.RIOT_API_KEY}`
-  );
+): Promise<LeagueEntryDto[]> {
   return await fetch(
-    `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${process.env.RIOT_API_KEY}`
+    `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}?api_key=${process.env.RIOT_API_KEY}`
   ).then((data) => data.json());
 }
 

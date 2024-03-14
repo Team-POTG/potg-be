@@ -40,4 +40,25 @@ export class AccountController {
       .getAccountByGameNameWithTagLine(tagLine, gameName, region)
       .then((data) => data);
   }
+
+  @Get("potg/common/accounts/by-puuid")
+  @ApiOperation({ operationId: "getAccountByPuuid" })
+  @ApiTags("Account")
+  @ApiQuery({
+    name: "puuid",
+    type: String,
+  })
+  @ApiQuery({
+    name: "region",
+    enum: RegionOfCountry,
+  })
+  @ApiOkResponse({ type: Account })
+  async getAccountByPuuid(
+    @Query("puuid") puuid: string,
+    @Query("region") region: RegionOfCountry
+  ): Promise<AccountDto> {
+    return this.accountService
+      .getAccountByPuuid(puuid, region)
+      .then((data) => data);
+  }
 }

@@ -18,3 +18,12 @@ export async function responseSummonerByPuuid(
     `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${process.env.RIOT_API_KEY}`
   ).then((data) => data.json());
 }
+
+export async function responseSummonerBySummonerId(
+  puuid: string,
+  region: RegionOfCountry
+): Promise<SummonerDto> {
+  return await fetch(
+    `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-summonerId/${puuid}?api_key=${process.env.RIOT_API_KEY}`
+  ).then((data) => data.json());
+}

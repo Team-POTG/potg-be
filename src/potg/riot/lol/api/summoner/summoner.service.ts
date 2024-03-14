@@ -4,6 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Summoner } from "./schema/summoner.schema";
 import { SummonerDto } from "./dto/summoner.dto";
+import { responseSummonerByPuuid } from "./response";
 
 @Injectable()
 export class SummonerService {
@@ -14,6 +15,14 @@ export class SummonerService {
     puuid: string,
     region: RegionOfCountry
   ): Promise<SummonerDto> {
-    return await this.summonerModel.findOne({ puuid: puuid }).exec();
+    return await this.summonerModel
+      .findOne({ puuid: puuid })
+      .then(async (summoner) => {
+        if (summoner) return summoner;
+        else
+          return await this.summonerModel
+            .create(await responseSummonerByPuuid(puuid, region))
+            .then((createdSummoner) => createdSummoner);
+      });
   }
 }

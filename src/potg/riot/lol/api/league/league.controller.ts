@@ -20,8 +20,8 @@ export class LeagueController {
   @Get("potg/lol/league/by-summoner/:id")
   @ApiOperation({ operationId: "getLeague" })
   @ApiTags("League")
-  @ApiParam({
-    name: "id",
+  @ApiQuery({
+    name: "summonerId",
     type: String,
   })
   @ApiQuery({
@@ -29,10 +29,10 @@ export class LeagueController {
     enum: RegionOfCountry,
   })
   @ApiOkResponse({ type: [LeagueEntryDto] })
-  async getLeague(
-    @Param("id") id: string,
+  async getLeagues(
+    @Query("summonerId") summonerId: string,
     @Query("region") region: RegionOfCountry
   ) {
-    return await this.leagueService.find(id);
+    return await this.leagueService.getLeaguesBySummonerId(summonerId, region);
   }
 }

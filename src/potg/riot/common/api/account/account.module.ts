@@ -14,6 +14,7 @@ import { RequestService } from "src/potg/riot/lol/api/request/request.service";
   ],
   controllers: [AccountController],
   providers: [AccountService],
+  exports: [AccountService],
 })
 export class AccountModule {
   constructor(private accountModule: AccountService) {}
