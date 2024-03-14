@@ -1,18 +1,7 @@
-import {
-  IsArray,
-  IsDefined,
-  IsJSON,
-  IsNumber,
-  IsObject,
-  IsString,
-  ValidateNested,
-  isArray,
-  isObject,
-} from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 import { Observer } from "./observer.dto";
 import { BannedChampion } from "./bannedChampion.dto";
 import { ApiProperty } from "@nestjs/swagger";
-import { Transform, Type } from "class-transformer";
 import { CurrentGameParticipant } from "./currentGameParticipant.dto";
 
 export class CurrentGameInfo {

@@ -18,27 +18,25 @@ import { CurrentGameParticipant } from "src/models/dto/riot/lol/spectator/curren
 export class SpectatorController {
   constructor(private spectatorService: SpectatorService) {}
 
-  @Get("potg/lol/spectator/by-summoner")
+  @Get("potg/lol/spectator/by-puuid")
   @ApiOperation({ operationId: "getSpectator" })
   @ApiExtraModels(CurrentGameInfo)
   @ApiTags("Spectator")
   @ApiQuery({
-    name: "summonerId",
+    name: "puuid",
     type: String,
   })
   @ApiQuery({
     name: "region",
     enum: RegionOfCountry,
   })
-  // @ApiOkResponse({ type: CurrentGameInfo })
   @ApiOkResponse({
     type: CurrentGameInfo,
-    // schema: { $ref: getSchemaPath(CurrentGameParticipant) },
   })
-  async getSpectator(
-    @Query("summonerId") summonerId: string,
+  async getSpectatorByPuuid(
+    @Query("puuid") puuid: string,
     @Query("region") region: RegionOfCountry
   ): Promise<CurrentGameInfo> {
-    return await this.spectatorService.getSpectator(summonerId, region);
+    return await this.spectatorService.getSpectator(puuid, region);
   }
 }
