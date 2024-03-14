@@ -21,6 +21,7 @@ import {
   ],
   controllers: [MatchController],
   providers: [MatchService, MatchResolver],
+  exports: [MatchService],
 })
 export class MatchModule {
   constructor(private matchService: MatchService) {}

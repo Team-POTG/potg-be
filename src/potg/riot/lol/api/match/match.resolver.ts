@@ -11,6 +11,6 @@ export class MatchResolver {
     @Args("puuid") puuid: string,
     @Args("limit") limit: number
   ): Promise<MatchDto[]> {
-    return await this.matchService.getMatch(puuid, limit);
+    return await this.matchService.getMatches(puuid, limit);
   }
 }

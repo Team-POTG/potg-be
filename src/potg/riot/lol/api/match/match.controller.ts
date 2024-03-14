@@ -23,6 +23,6 @@ export class MatchController {
     // @Query("region") region: RegionOfContinent
     @Param("count") count: number
   ) {
-    return this.matchService.getMatch(puuid, count);
+    return this.matchService.getMatches(puuid, count);
   }
 }

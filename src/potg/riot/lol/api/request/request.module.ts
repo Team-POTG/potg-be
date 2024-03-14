@@ -15,6 +15,7 @@ import {
 } from "src/models/schema/riot/lol/league/league.schema";
 import { LeagueService } from "../league/league.service";
 import { LeagueModule } from "../league/league.module";
+import { MatchModule } from "../match/match.module";
 
 @Module({
   imports: [

@@ -3,9 +3,7 @@ import { RegionOfCountry } from "src/potg/riot/common/types/regions";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Summoner } from "../summoner/schema/summoner.schema";
-import { RegionOfContinent } from "src/types/regions";
 import { Account } from "src/potg/riot/common/api/account/schema/account.schema";
-import { AccountDto } from "src/models/dto/riot/common/account.dto";
 import { responseSummonerByPuuid } from "../summoner/response";
 import { getCountryToContinent } from "../../controller/regionRouting";
 import { responseAccountByGameNameWithTagLine } from "src/potg/riot/common/api/account/response";
@@ -14,9 +12,7 @@ import {
   responseMatchListByPuuid,
 } from "../match/response";
 import { Match } from "src/models/schema/riot/lol/match/match.schema";
-import { responseLeagueBySummonerId } from "../league/response";
 import { LeagueService } from "../league/league.service";
-import { AccountService } from "src/potg/riot/common/api/account/account.service";
 import { League } from "src/models/schema/riot/lol/league/league.schema";
 
 @Injectable()
@@ -26,6 +22,7 @@ export class RequestService {
     @InjectModel(Match.name) private matchModel: Model<Match>,
     @InjectModel(Summoner.name) private summonerModel: Model<Summoner>,
     @InjectModel(League.name) private leagueModel: Model<League>,
+
     private leagueService: LeagueService
   ) {}
 
@@ -46,7 +43,7 @@ export class RequestService {
       });
   }
 
-  async requestByTagGameNameWithTagLine(
+  async requestByGameNameWithTagLine(
     tagLine: string,
     gameName: string,
     region: RegionOfCountry
@@ -102,9 +99,15 @@ export class RequestService {
       .findOne({ "info.summonerId": summonerData.id })
       .then(async (league) => {
         if (league) {
-          await this.leagueService.update(summonerData.id, region);
+          await this.leagueService.updateLeaguesBySummonerId(
+            summonerData.id,
+            region
+          );
         } else {
-          await this.leagueService.add(summonerData.id, region);
+          await this.leagueService.getLeaguesBySummonerId(
+            summonerData.id,
+            region
+          );
         }
       });
 
