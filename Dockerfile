@@ -25,12 +25,9 @@ RUN mkdir -p /data/db
 
 WORKDIR /app
 
-COPY ./dist /app/dist
-COPY ./.env /app/
+COPY . /app
 
-COPY package*.json /app/
-
-RUN npm install
+RUN npm install && npm run build
 
 EXPOSE 3001
 
