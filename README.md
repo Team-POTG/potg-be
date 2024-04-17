@@ -19,8 +19,9 @@ DATABASE_URI=mongodb://localhost:27017/potg
 1. [MongoDB](https://www.mongodb.com) 설치
 2. [NodeJS](https://nodejs.org/en) 설치
 3. `.env` 파일 작성
-4. `npm install` 입력
-5. `npm run start` 입력
+4. terminal 실행
+5. `npm install` 입력
+6. `npm run start` 입력
 
 ### 1-2. Installed Docker on Machine
 
@@ -28,7 +29,7 @@ DATABASE_URI=mongodb://localhost:27017/potg
 2. `.env` 파일 작성
 3. terminal 실행
 4. `docker build -t potg-be .` 입력
-5. 빌드가 끝나면 `docker run potg-be` 입력
+5. 빌드가 끝나면 `docker run -p 3001:3001 potg-be` 입력
 
 ## 2. Swagger
 
